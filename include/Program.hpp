@@ -32,6 +32,6 @@ class Program
   VarState vars_;
   int programCounter_;
   bool programEnd_;
-  bool NewLine;
+  bool needNewLine;
   void resetAfterRun() noexcept;
 };

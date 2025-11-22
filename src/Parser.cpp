@@ -110,8 +110,7 @@ Statement* Parser::parseLet(TokenStream& tokens, const std::string& originLine) 
 
   auto expr = parseExpression(tokens);
   // TODO: create a corresponding stmt and return it.
-  LETStatement LETStmt(varName, expr, originLine);
-  Statement* result = &LETStmt;
+  Statement* result = new LETStatement(varName, expr, originLine);
   return result;
 }
 
@@ -119,8 +118,7 @@ Statement* Parser::parsePrint(TokenStream& tokens, const std::string& originLine
 {
   auto expr = parseExpression(tokens);
   // TODO: create a corresponding stmt and return it.
-  PRINTStatement PRINTStmt(expr, originLine);
-  Statement* result = &PRINTStmt;
+  Statement* result = new PRINTStatement(expr, originLine);
   return result;
 }
 
@@ -139,8 +137,7 @@ Statement* Parser::parseInput(TokenStream& tokens, const std::string& originLine
 
   std::string varName = varToken->text;
   // TODO: create a corresponding stmt and return it.
-  INPUTStatement INPUTStmt(varName, originLine);
-  Statement* result = &INPUTStmt;
+  Statement* result = new INPUTStatement(varName, originLine);
   return result;
 }
 
@@ -159,8 +156,7 @@ Statement* Parser::parseGoto(TokenStream& tokens, const std::string& originLine)
 
   int targetLine = parseLiteral(lineToken);
   // TODO: create a corresponding stmt and return it.
-  GOTOStatement GOTOStmt(targetLine, originLine);
-  Statement* result = &GOTOStmt;
+  Statement* result = new GOTOStatement(targetLine, originLine);
   return result;
 }
 
@@ -216,8 +212,7 @@ Statement* Parser::parseIf(TokenStream& tokens, const std::string& originLine) c
   int targetLine = parseLiteral(lineToken);
 
   // TODO: create a corresponding stmt and return it.
-  IFStatement IFStmt(leftExpr, rightExpr, op, targetLine, originLine);
-  Statement* result = &IFStmt;
+  Statement* result = new IFStatement(leftExpr, rightExpr, op, targetLine, originLine);
   return result;
 }
 
@@ -229,8 +224,7 @@ Statement* Parser::parseRem(TokenStream& tokens, const std::string& originLine) 
     throw BasicError("SYNTAX ERROR");
   }
   // TODO: create a corresponding stmt and return it.
-  REMStatement REMStmt(originLine);
-  Statement* result = &REMStmt;
+  Statement* result = new REMStatement(originLine);
   return result;
 }
 

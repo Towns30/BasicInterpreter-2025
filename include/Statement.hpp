@@ -38,10 +38,10 @@ class LETStatement : public Statement
 class PRINTStatement : public Statement
 {
  private:
-  std::string name_;
+  Expression* expr_;
 
  public:
-  PRINTStatement(std::string name, std::string originLine);
+  PRINTStatement(Expression* expr, std::string originLine);
   void execute(VarState& state, Program& program) const;
 };
 

@@ -26,13 +26,14 @@ void LETStatement::execute(VarState& state, Program& program) const
   program.NewLine();  // 换行
 }
 
-PRINTStatement::PRINTStatement(std::string name, std::string originLine) : Statement(originLine)
+PRINTStatement::PRINTStatement(Expression* expr, std::string originLine) : Statement(originLine)
 {
-  name = name_;
+  expr_ = expr;
 }
 void PRINTStatement::execute(VarState& state, Program& program) const
 {
-  std::cout << state.getValue(name_) << std::endl;
+  int result = expr_->evaluate(state);
+  std::cout << result << std::endl;
   program.NewLine();  // 换行
 }
 
