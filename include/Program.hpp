@@ -19,7 +19,7 @@ class Program
   void list() const;
   void clear();
 
-  void execute(Statement* stmt);
+  void execute(const Statement* stmt);
 
   int getPC() const noexcept;
   void changePC(int line);
@@ -32,6 +32,6 @@ class Program
   VarState vars_;
   int programCounter_;
   bool programEnd_;
-  bool needNewLine;
+  bool needNewLine_;
   void resetAfterRun() noexcept;
 };
