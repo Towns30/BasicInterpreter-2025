@@ -32,7 +32,7 @@ class LETStatement : public Statement
 
  public:
   LETStatement(std::string name, Expression* expr, std::string originLine);
-  void execute(VarState& state, Program& program);
+  void execute(VarState& state, Program& program) const;
 };
 
 class PRINTStatement : public Statement
@@ -42,18 +42,17 @@ class PRINTStatement : public Statement
 
  public:
   PRINTStatement(std::string name, std::string originLine);
-  void execute(VarState& state, Program& program);
+  void execute(VarState& state, Program& program) const;
 };
 
 class INPUTStatement : public Statement
 {
  private:
   std::string name_;
-  int value_;
 
  public:
   INPUTStatement(std::string name, std::string originLine);
-  void execute(VarState& state, Program& program);
+  void execute(VarState& state, Program& program) const;
 };
 
 class GOTOStatement : public Statement
@@ -63,7 +62,7 @@ class GOTOStatement : public Statement
 
  public:
   GOTOStatement(int targetline, std::string originLine);
-  void execute(VarState& state, Program& program);
+  void execute(VarState& state, Program& program) const;
 };
 
 class IFStatement : public Statement
@@ -77,19 +76,19 @@ class IFStatement : public Statement
  public:
   IFStatement(Expression* leftExpr, Expression* rightExptr, char op, int targetline,
               std::string originLine);
-  void execute(VarState& state, Program& program);
+  void execute(VarState& state, Program& program) const;
 };
 
 class REMStatement : public Statement
 {
  public:
   REMStatement(std::string originLine);
-  void execute(VarState& state, Program& program);
+  void execute(VarState& state, Program& program) const;
 };
 
 class ENDStatement : public Statement
 {
  public:
   ENDStatement(std::string originLine);
-  void execute(VarState& state, Program& program);
+  void execute(VarState& state, Program& program) const;
 };

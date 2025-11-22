@@ -109,14 +109,19 @@ Statement* Parser::parseLet(TokenStream& tokens, const std::string& originLine) 
   }
 
   auto expr = parseExpression(tokens);
-
   // TODO: create a corresponding stmt and return it.
+  LETStatement LETStmt(varName, expr, originLine);
+  Statement* result = &LETStmt;
+  return result;
 }
 
 Statement* Parser::parsePrint(TokenStream& tokens, const std::string& originLine) const
 {
   auto expr = parseExpression(tokens);
   // TODO: create a corresponding stmt and return it.
+  PRINTStatement PRINTStmt(expr, originLine);
+  Statement* result = &PRINTStmt;
+  return result;
 }
 
 Statement* Parser::parseInput(TokenStream& tokens, const std::string& originLine) const
@@ -134,6 +139,9 @@ Statement* Parser::parseInput(TokenStream& tokens, const std::string& originLine
 
   std::string varName = varToken->text;
   // TODO: create a corresponding stmt and return it.
+  INPUTStatement INPUTStmt(varName, originLine);
+  Statement* result = &INPUTStmt;
+  return result;
 }
 
 Statement* Parser::parseGoto(TokenStream& tokens, const std::string& originLine) const
@@ -151,6 +159,9 @@ Statement* Parser::parseGoto(TokenStream& tokens, const std::string& originLine)
 
   int targetLine = parseLiteral(lineToken);
   // TODO: create a corresponding stmt and return it.
+  GOTOStatement GOTOStmt(targetLine, originLine);
+  Statement* result = &GOTOStmt;
+  return result;
 }
 
 Statement* Parser::parseIf(TokenStream& tokens, const std::string& originLine) const
@@ -205,6 +216,9 @@ Statement* Parser::parseIf(TokenStream& tokens, const std::string& originLine) c
   int targetLine = parseLiteral(lineToken);
 
   // TODO: create a corresponding stmt and return it.
+  IFStatement IFStmt(leftExpr, rightExpr, op, targetLine, originLine);
+  Statement* result = &IFStmt;
+  return result;
 }
 
 Statement* Parser::parseRem(TokenStream& tokens, const std::string& originLine) const
@@ -215,11 +229,17 @@ Statement* Parser::parseRem(TokenStream& tokens, const std::string& originLine) 
     throw BasicError("SYNTAX ERROR");
   }
   // TODO: create a corresponding stmt and return it.
+  REMStatement REMStmt(originLine);
+  Statement* result = &REMStmt;
+  return result;
 }
 
 Statement* Parser::parseEnd(TokenStream& tokens, const std::string& originLine) const
 {
   // TODO: create a corresponding stmt and return it.
+  ENDStatement ENDStmt(originLine);
+  Statement* result = &ENDStmt;
+  return result;
 }
 
 Expression* Parser::parseExpression(TokenStream& tokens) const
@@ -227,7 +247,8 @@ Expression* Parser::parseExpression(TokenStream& tokens) const
   return parseExpression(tokens, 0);
 }
 
-Expression* Parser::parseExpression(TokenStream& tokens, int precedence) const // 将表达式转化为运算树，返回这颗运算树（也有可能是单独的变量或常量）
+Expression* Parser::parseExpression(TokenStream& tokens, int precedence)
+    const  // 将表达式转化为运算树，返回这颗运算树（也有可能是单独的变量或常量）
 {
   // 解析左操作数
   Expression* left;

@@ -24,12 +24,14 @@ class Program
   int getPC() const noexcept;
   void changePC(int line);
   void programEnd();
+  void noNewLine();
+  void NewLine();
 
  private:
   Recorder recorder_;
   VarState vars_;
   int programCounter_;
   bool programEnd_;
-
+  bool NewLine;
   void resetAfterRun() noexcept;
 };

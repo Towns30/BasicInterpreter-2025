@@ -20,7 +20,7 @@ LETStatement::LETStatement(std::string name, Expression* expr, std::string origi
   name_ = name;
   expr_ = expr;
 }
-void LETStatement::execute(VarState& state, Program& program)
+void LETStatement::execute(VarState& state, Program& program) const
 {
   state.setValue(name_, expr_->evaluate(state));
   program.NewLine();  // 换行
@@ -30,7 +30,7 @@ PRINTStatement::PRINTStatement(std::string name, std::string originLine) : State
 {
   name = name_;
 }
-void PRINTStatement::execute(VarState& state, Program& program)
+void PRINTStatement::execute(VarState& state, Program& program) const
 {
   std::cout << state.getValue(name_) << std::endl;
   program.NewLine();  // 换行
@@ -39,13 +39,13 @@ void PRINTStatement::execute(VarState& state, Program& program)
 INPUTStatement::INPUTStatement(std::string name, std::string originLine) : Statement(originLine)
 {
   name_ = name;
-  value_ = 0;
 }
-void INPUTStatement::execute(VarState& state, Program& program)
+void INPUTStatement::execute(VarState& state, Program& program) const
 {
+  int value;
   std::cout << '?' << std::endl;
-  std::cin >> value_;
-  state.setValue(name_, value_);
+  std::cin >> value;
+  state.setValue(name_, value);
   program.NewLine();  // 换行
 }
 
@@ -53,7 +53,7 @@ GOTOStatement::GOTOStatement(int targetline, std::string originLine) : Statement
 {
   targetline_ = targetline;
 }
-void GOTOStatement::execute(VarState& state, Program& program) { program.changePC(targetline_); }
+void GOTOStatement::execute(VarState& state, Program& program) const { program.changePC(targetline_); }
 
 IFStatement::IFStatement(Expression* leftExpr, Expression* rightExpr, char op, int targetline,
                          std::string originLine)
@@ -64,7 +64,7 @@ IFStatement::IFStatement(Expression* leftExpr, Expression* rightExpr, char op, i
   op_ = op;
   targetline_ = targetline;
 }
-void IFStatement::execute(VarState& state, Program& program)
+void IFStatement::execute(VarState& state, Program& program) const
 {
   int left = leftExpr_->evaluate(state);
   int right = rightExpr_->evaluate(state);
@@ -86,13 +86,13 @@ void IFStatement::execute(VarState& state, Program& program)
 }
 
 REMStatement::REMStatement(std::string originLine) : Statement(originLine) {}
-void REMStatement::execute(VarState& state, Program& program)
+void REMStatement::execute(VarState& state, Program& program) const
 {
   program.NewLine();
 }
 
 ENDStatement::ENDStatement(std::string originLine) : Statement(originLine) {}
-void ENDStatement::execute(VarState& state, Program& program)
+void ENDStatement::execute(VarState& state, Program& program) const
 {
   program.programEnd();
 }
