@@ -8,19 +8,25 @@
 #include "Token.hpp"
 #include "utils/Error.hpp"
 
-int main() {
+int main()
+{
   Lexer lexer;
   Parser parser;
   Program program;
 
   std::string line;
-  while (std::getline(std::cin, line)) {
-    if (line.empty()) {
+  while (std::getline(std::cin, line))
+  {
+    if (line.empty())
+    {
       continue;
     }
-    try {
+    try
+    {
       // TODO: The main function.
-    } catch (const BasicError& e) {
+    }
+    catch (const BasicError& e)
+    {
       std::cout << e.message() << "\n";
     }
   }

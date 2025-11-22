@@ -4,7 +4,8 @@
 
 #include "Token.hpp"
 
-class Lexer {
+class Lexer
+{
  public:
   TokenStream tokenize(const std::string& line) const;
 

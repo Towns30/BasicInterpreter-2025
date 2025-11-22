@@ -3,7 +3,8 @@
 #include <stdexcept>
 #include <string>
 
-class BasicError : public std::runtime_error {
+class BasicError : public std::runtime_error
+{
  public:
   explicit BasicError(std::string&& message);
 

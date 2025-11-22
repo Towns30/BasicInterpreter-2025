@@ -7,7 +7,8 @@
 
 class Statement;
 
-class Program {
+class Program
+{
  public:
   Program();
 

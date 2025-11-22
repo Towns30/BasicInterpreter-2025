@@ -1,18 +1,21 @@
 #include "Token.hpp"
 
-TokenStream::TokenStream(std::vector<Token>&& tokens)
-    : tokens_(std::move(tokens)), cursor_(0) {}
+TokenStream::TokenStream(std::vector<Token>&& tokens) : tokens_(std::move(tokens)), cursor_(0) {}
 
-const Token* TokenStream::peek() const {
-  if (cursor_ >= tokens_.size()) {
+const Token* TokenStream::peek() const
+{
+  if (cursor_ >= tokens_.size())
+  {
     return nullptr;
   }
-  return &tokens_[cursor_];
+  return &tokens_[cursor_];  // 取地址
 }
 
-const Token* TokenStream::get() {
+const Token* TokenStream::get()
+{
   const Token* current = peek();
-  if (current != nullptr) {
+  if (current != nullptr)
+  {
     ++cursor_;
   }
   return current;

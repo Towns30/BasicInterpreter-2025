@@ -3,7 +3,8 @@
 #include <string>
 #include <vector>
 
-enum class TokenType {
+enum class TokenType
+{
   // Keywords
   LET,
   PRINT,
@@ -37,13 +38,15 @@ enum class TokenType {
   UNKNOWN
 };
 
-struct Token {
+struct Token
+{
   TokenType type{TokenType::UNKNOWN};
   std::string text{};
   int column{0};
 };
 
-class TokenStream {
+class TokenStream
+{
  public:
   TokenStream() = default;
   explicit TokenStream(std::vector<Token>&& tokens);

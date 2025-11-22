@@ -6,7 +6,8 @@
 
 #include "Statement.hpp"
 
-class Recorder {
+class Recorder
+{
  public:
   ~Recorder();
 

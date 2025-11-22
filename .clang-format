@@ -1,1 +1,4 @@
 BasedOnStyle: Google
+BreakBeforeBraces: Allman
+ColumnLimit: 100
+AllowShortBlocksOnASingleLine: false
