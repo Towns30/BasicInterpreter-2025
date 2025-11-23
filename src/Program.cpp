@@ -18,6 +18,7 @@ void Program::addStmt(int line, Statement* stmt) { recorder_.add(line, stmt); }
 void Program::removeStmt(int line) { recorder_.remove(line); }
 void Program::run()
 {
+  programEnd_ = false;
   do
   {
     if (needNewLine_)
