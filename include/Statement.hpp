@@ -33,6 +33,7 @@ class LETStatement : public Statement
  public:
   LETStatement(std::string name, Expression* expr, std::string originLine);
   void execute(VarState& state, Program& program) const;
+  ~LETStatement();
 };
 
 class PRINTStatement : public Statement
@@ -43,6 +44,7 @@ class PRINTStatement : public Statement
  public:
   PRINTStatement(Expression* expr, std::string originLine);
   void execute(VarState& state, Program& program) const;
+  ~PRINTStatement();
 };
 
 class INPUTStatement : public Statement
@@ -77,6 +79,7 @@ class IFStatement : public Statement
   IFStatement(Expression* leftExpr, Expression* rightExptr, char op, int targetline,
               std::string originLine);
   void execute(VarState& state, Program& program) const;
+  ~IFStatement();
 };
 
 class REMStatement : public Statement

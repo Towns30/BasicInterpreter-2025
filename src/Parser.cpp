@@ -1,5 +1,6 @@
 #include "Parser.hpp"
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -11,7 +12,7 @@
 
 ParsedLine::ParsedLine() { statement_ = nullptr; }
 
-ParsedLine::~ParsedLine() { delete statement_; }
+ParsedLine::~ParsedLine() = default;
 
 void ParsedLine::setLine(int line) { line_number_.emplace(line); }
 
@@ -43,11 +44,13 @@ ParsedLine Parser::parseLine(TokenStream& tokens, const std::string& originLine)
     // 如果只有行号，表示删除该行
     if (tokens.empty())
     {
+      // std::cerr << "read empty line" << std::endl;
       return result;
     }
   }
 
   // 解析语句
+  // std::cerr << "初步提取行号" << std::endl;
   result.setStatement(parseStatement(tokens, originLine));
 
   return result;
@@ -57,12 +60,14 @@ Statement* Parser::parseStatement(TokenStream& tokens, const std::string& origin
 {
   if (tokens.empty())
   {
+    // std::cerr << "未出现语句" << std::endl;
     throw BasicError("SYNTAX ERROR");
   }
 
   const Token* token = tokens.get();  // 取第一个token并让游标往后走一个
   if (!token)
   {
+    // std::cerr << "词块为空" << std::endl;
     throw BasicError("SYNTAX ERROR");
   }
 
@@ -83,6 +88,7 @@ Statement* Parser::parseStatement(TokenStream& tokens, const std::string& origin
     case TokenType::END:
       return parseEnd(tokens, originLine);
     default:
+      // std::cerr << "找不到token对应类型" << std::endl;
       throw BasicError("SYNTAX ERROR");
   }
 }
@@ -119,6 +125,7 @@ Statement* Parser::parsePrint(TokenStream& tokens, const std::string& originLine
   auto expr = parseExpression(tokens);
   // TODO: create a corresponding stmt and return it.
   Statement* result = new PRINTStatement(expr, originLine);
+  // std::cout << "解析为PRINT语句" << std::endl;
   return result;
 }
 
@@ -138,6 +145,8 @@ Statement* Parser::parseInput(TokenStream& tokens, const std::string& originLine
   std::string varName = varToken->text;
   // TODO: create a corresponding stmt and return it.
   Statement* result = new INPUTStatement(varName, originLine);
+  // std::cerr << result << std::endl;
+  // std::cerr << result->text() << std::endl;
   return result;
 }
 
@@ -231,8 +240,7 @@ Statement* Parser::parseRem(TokenStream& tokens, const std::string& originLine) 
 Statement* Parser::parseEnd(TokenStream& tokens, const std::string& originLine) const
 {
   // TODO: create a corresponding stmt and return it.
-  ENDStatement ENDStmt(originLine);
-  Statement* result = &ENDStmt;
+  Statement* result = new ENDStatement(originLine);
   return result;
 }
 

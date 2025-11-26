@@ -18,6 +18,7 @@ class Recorder
   void clear() noexcept;
   void printLines() const;
   int nextLine(int line) const noexcept;
+  int getFirstLine();
 
  private:
   std::map<int, Statement*> Stmts_;  // 里面都是动态指针
